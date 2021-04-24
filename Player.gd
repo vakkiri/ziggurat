@@ -31,6 +31,7 @@ var post_climb_timer = 0
 var POST_CLIMB_TIME = 0.25
 
 var has_key = false
+var diamonds = 0
 
 func _ready():
 	$AnimatedSprite.animation = "idle"
@@ -117,6 +118,10 @@ func _physics_process(delta):
 		left_pressed_last = false
 	if Input.is_action_just_pressed("ui_left"):
 		left_pressed_last = true
+	if Input.is_action_just_pressed("ui_down"):
+		for area in $Collider.get_overlapping_areas():
+			if area.name == "DoorArea" and has_key:
+				area.use()
 		
 	handle_gravity(delta)
 	

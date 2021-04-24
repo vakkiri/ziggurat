@@ -135,6 +135,7 @@ script = ExtResource( 2 )
 position = Vector2( -1, -5 )
 frames = SubResource( 7 )
 animation = "fall"
+frame = 4
 playing = true
 centered = false
 
@@ -143,7 +144,7 @@ position = Vector2( 3, 0 )
 shape = SubResource( 15 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, -16 )
+position = Vector2( 0, -24 )
 current = true
 limit_left = 0
 limit_top = -100000
