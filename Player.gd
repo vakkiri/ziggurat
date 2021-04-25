@@ -109,6 +109,13 @@ func handle_movement():
 	
 	$AnimatedSprite.flip_h = !facing_left
 	
+	# Sounds
+	if (is_on_floor() and (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"))) or (is_climbing() and Input.is_action_pressed("ui_up")):
+		if not $"/root/WalkSound".playing:
+			$"/root/WalkSound".play()
+	else:
+		$"/root/WalkSound".stop()
+	
 	if not is_on_floor() and not is_on_wall():
 		$AnimatedSprite.animation = "fall"
 	elif is_climbing():

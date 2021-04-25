@@ -19,4 +19,5 @@ func _ready():
 func _on_Area2D_body_entered(body):
 	if body.name == "Player":
 		body.diamonds += 1
+		$"/root/GetDiamondSound".play()
 		queue_free()

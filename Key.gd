@@ -1,6 +1,5 @@
 extends AnimatedSprite
 
-
 var phase = 0
 var dir = "RIGHT"
 
@@ -28,4 +27,5 @@ func _process(delta):
 func _on_Area2D_body_entered(body):
 	if body.name == "Player":
 		body.has_key = true
+		$"/root/GetKeySound".play()
 		queue_free()

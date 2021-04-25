@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/sfx/ONIONCHARGE.wav" type="AudioStream" id=1]
+[ext_resource path="res://Sfx.gd" type="Script" id=2]
+
+[node name="OnionCharge" type="AudioStreamPlayer2D"]
+stream = ExtResource( 1 )
+volume_db = -3.817
+max_distance = 150.0
+attenuation = 1.18921
+script = ExtResource( 2 )

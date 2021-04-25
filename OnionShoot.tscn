@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/sfx/ONIONSOUND.wav" type="AudioStream" id=1]
+[ext_resource path="res://Sfx.gd" type="Script" id=2]
+
+[node name="OnionShoot" type="AudioStreamPlayer2D"]
+stream = ExtResource( 1 )
+volume_db = -0.005
+max_distance = 150.0
+script = ExtResource( 2 )

@@ -23,6 +23,9 @@ config/icon="res://icon.png"
 
 Song1="*res://Song1.tscn"
 JumpSound="*res://JumpSound.tscn"
+WalkSound="*res://WalkSound.tscn"
+GetDiamondSound="*res://GetDiamondSound.tscn"
+GetKeySound="*res://GetKeySound.tscn"
 
 [display]
 

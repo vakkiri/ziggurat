@@ -1,6 +1,8 @@
 extends AnimatedSprite
 
 const PROJECTILE = preload("res://OnionBall.tscn")
+const SHOOTSOUND = preload("res://OnionShoot.tscn")
+const CHARGESOUND = preload("res://OnionCharge.tscn")
 
 var COOLDOWN = 3
 var time_until_attack = COOLDOWN
@@ -27,6 +29,11 @@ func _process_idle(delta):
 		time_until_attack += COOLDOWN
 		state = "ATTACK"
 		frame = 0
+		var sound = CHARGESOUND.instance()
+		sound.position.x = position.x
+		sound.position.y = position.y
+		get_parent().add_child(sound)
+		sound.play()
 	else:
 		if dir == "RIGHT":
 			if position.x < max_x:
@@ -70,4 +77,9 @@ func _on_Onion_animation_finished():
 		var angle = position.angle_to_point(player_pos) - PI/2
 		proj.rotate(angle)
 		proj.angle = angle - PI/2
+		var sound = SHOOTSOUND.instance()
+		sound.position.x = position.x
+		sound.position.y = position.y
+		get_parent().add_child(sound)
+		sound.play()
 		
