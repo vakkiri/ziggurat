@@ -11,7 +11,7 @@ var cooldown_timer = 0
 var state = "IDLE"
 const SHOT_CD = 0.15
 var shot_timer = 0
-const PRE_DELAY = 0.5
+const PRE_DELAY = 0.3
 var pre_timer = 0
 
 # Called when the node enters the scene tree for the first time.

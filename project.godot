@@ -16,8 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Ziggurat"
-run/main_scene="res://Area2.tscn"
+run/main_scene="res://Area1.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Song1="*res://Song1.tscn"
+JumpSound="*res://JumpSound.tscn"
 
 [display]
 

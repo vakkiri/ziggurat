@@ -20,6 +20,9 @@ var last_dir = LEFT
 var MAX_Y = 550 / 4
 var vx = 0
 var vy = 0
+var reset_x = 0
+var reset_y = 0
+var invincible_timer = 0
 
 var jump_period
 
@@ -32,6 +35,8 @@ var POST_CLIMB_TIME = 0.25
 
 var has_key = false
 var diamonds = 0
+var health = 100
+var target_health = health
 
 func _ready():
 	$AnimatedSprite.animation = "idle"
@@ -39,6 +44,8 @@ func _ready():
 	facing_left = false
 	vx = 0
 	jump_period = 0
+	reset_x = position.x
+	reset_y = position.y
 
 
 func is_climbing():
@@ -54,6 +61,7 @@ func handle_gravity(delta):
 		else:
 			motion.y += GRAVITY
 	else:
+		fall_timer = 0
 		motion.y = CLIMB_SPEED
 		post_climb_timer = POST_CLIMB_TIME
 
@@ -114,6 +122,17 @@ func handle_movement():
 func _physics_process(delta):
 	post_climb_timer -= delta
 	
+	if invincible_timer > 0:
+		invincible_timer -= delta
+		$AnimatedSprite.visible = rand_range(0, 1) < 0.5
+	else:
+		$AnimatedSprite.visible = true
+		
+	if target_health < health:
+		health -= delta * 120
+	if target_health > health:
+		health = target_health
+		
 	if Input.is_action_just_pressed("ui_right"):
 		left_pressed_last = false
 	if Input.is_action_just_pressed("ui_left"):
@@ -148,7 +167,7 @@ func _physics_process(delta):
 	if jump_period > 0 or post_climb_timer > 0:
 		if Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("ui_up"):
 			motion.y = JUMP
-			# $"/root/JumpSound".play()
+			$"/root/JumpSound".play()
 			jump_period = 0
 		
 	var prex = position.x
@@ -156,3 +175,11 @@ func _physics_process(delta):
 	motion = move_and_slide(motion, UP)
 	if position.x < 0:
 		position.x = 0
+		
+	if fall_timer >= 4 or health <= 0:
+		get_tree().reload_current_scene()
+		
+func hit(damage):
+	if invincible_timer <= 0:
+		target_health -= damage
+		invincible_timer = 0.1

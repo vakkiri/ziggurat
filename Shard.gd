@@ -26,6 +26,9 @@ func _die():
 	queue_free()
 	
 func _on_Shard_area_entered(area):
+	if area.get_parent().name == "Player":
+		area.get_parent().hit(10)
+		_die()
 	if not area.is_in_group("Monster"):
 		_die()
 
@@ -33,4 +36,7 @@ func _on_Shard_area_entered(area):
 
 func _on_Shard_body_entered(body):
 	if body.name == "TileMap":
+		_die()
+	elif body.name == "Player":
+		body.hit(35)
 		_die()
