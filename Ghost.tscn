@@ -8,8 +8,8 @@ radius = 3.0
 
 [node name="Ghost" type="AnimatedSprite"]
 frames = ExtResource( 1 )
-animation = "idle"
-frame = 2
+animation = "ending"
+frame = 8
 playing = true
 script = ExtResource( 2 )
 
@@ -17,3 +17,5 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
+[connection signal="animation_finished" from="." to="." method="_on_Ghost_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

@@ -1,5 +1,7 @@
 extends AnimatedSprite
 
+const EXPLOSION = preload("res://IceCloud.tscn")
+
 var angle = 0
 var speed = 100
 var max_life = 3
@@ -20,20 +22,29 @@ func _process(delta):
 		speed -= 60 * delta
 		
 	if life <= 0 or speed <= 0:
-		queue_free()
+		_die()
 
 
+func _die():
+	for i in range(3):
+		var e =EXPLOSION.instance()
+		e.position.x = position.x + rand_range(-4, 4)
+		e.position.y = position.y + rand_range(-2, 2)
+		get_parent().add_child(e)
+		
+	queue_free()
+		
 func _on_Area2D_area_entered(area):
 	if area.get_parent().name == "Player":
 		area.get_parent().hit(10)
-		queue_free()
+		_die()
 	elif not area.is_in_group("Monster"):
-		queue_free()
+		_die()
 
 
 func _on_Area2D_body_entered(body):
 	if body.name == "TileMap":
-		queue_free()
+		_die()
 	elif body.name == "Player":
 		body.hit(40)
-		queue_free()
+		_die()

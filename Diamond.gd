@@ -21,3 +21,14 @@ func _on_Area2D_body_entered(body):
 		body.diamonds += 1
 		$"/root/GetDiamondSound".play()
 		queue_free()
+		# lol hahaha wow im good at coding
+		if body.diamonds == 1:
+			get_parent().get_node("CanvasLayer2").get_node("Light1").frame = 1
+		if body.diamonds == 2:
+			get_parent().get_node("CanvasLayer2").get_node("Light2").frame = 1
+		if body.diamonds == 3:
+			get_parent().get_node("CanvasLayer2").get_node("Light3").frame = 1
+		if body.diamonds == 4:
+			get_parent().get_node("CanvasLayer2").get_node("Light4").frame = 1
+		if body.diamonds == 5:
+			get_parent().get_node("CanvasLayer2").get_node("Light5").frame = 1

@@ -13,6 +13,8 @@ func _ready():
 	if not $"/root/Song1".playing:
 		$"/root/Song1".play()
 	$Player.get_node("Camera2D").limit_bottom = 144
+	
+	$"/root/Settings".started = true
 
 
 func _process(delta):

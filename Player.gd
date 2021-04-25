@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const EXPLOSION = preload("res://PlayerDust.tscn")
+
 var motion = Vector2()
 const UP = Vector2(0, -1)
 const GRAVITY = 11
@@ -37,6 +39,7 @@ var has_key = false
 var diamonds = 0
 var health = 100
 var target_health = health
+var ending = false
 
 func _ready():
 	$AnimatedSprite.animation = "idle"
@@ -127,66 +130,74 @@ func handle_movement():
 
 
 func _physics_process(delta):
-	post_climb_timer -= delta
-	
-	if invincible_timer > 0:
-		invincible_timer -= delta
-		$AnimatedSprite.visible = rand_range(0, 1) < 0.5
-	else:
-		$AnimatedSprite.visible = true
+	if not ending:
+		post_climb_timer -= delta
 		
-	if target_health < health:
-		health -= delta * 120
-	if target_health > health:
-		health = target_health
+		if invincible_timer > 0:
+			invincible_timer -= delta
+			$AnimatedSprite.visible = rand_range(0, 1) < 0.5
+		else:
+			$AnimatedSprite.visible = true
+			
+		if target_health < health:
+			health -= delta * 120
+		if target_health > health:
+			health = target_health
+			
+		if Input.is_action_just_pressed("ui_right"):
+			left_pressed_last = false
+		if Input.is_action_just_pressed("ui_left"):
+			left_pressed_last = true
+		if Input.is_action_just_pressed("ui_down"):
+			for area in $Collider.get_overlapping_areas():
+				if area.name == "DoorArea" and has_key or diamonds == 5:
+					area.use()
+				elif area.name == "DoorArea":
+					$"/root/DoorBuzz".play()
 		
-	if Input.is_action_just_pressed("ui_right"):
-		left_pressed_last = false
-	if Input.is_action_just_pressed("ui_left"):
-		left_pressed_last = true
-	if Input.is_action_just_pressed("ui_down"):
-		for area in $Collider.get_overlapping_areas():
-			if area.name == "DoorArea" and has_key or diamonds == 5:
-				area.use()
-			elif area.name == "DoorArea":
-				$"/root/DoorBuzz".play()
+		handle_gravity(delta)
 		
-	handle_gravity(delta)
-	
-	if (motion.y > MAX_Y):
-		motion.y = MAX_Y
-	if (vx > MAX_SPEED):
-		vx = MAX_SPEED
-	if (vx < -MAX_SPEED):
-		vx = -MAX_SPEED
-		
-	jump_period -= delta;
-	if (jump_period < 0):
-		jump_period = 0
-		
-	handle_movement()
-	
-	if is_on_floor():
-		jump_period = 0.2
-		if fall_timer > 0.5:
-			# $"/root/FallSound".play()
-			fall_timer = 0
-	else:
-		fall_timer += delta
-	if jump_period > 0 or post_climb_timer > 0:
-		if Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("ui_up"):
-			motion.y = JUMP
-			$"/root/JumpSound".play()
+		if (motion.y > MAX_Y):
+			motion.y = MAX_Y
+		if (vx > MAX_SPEED):
+			vx = MAX_SPEED
+		if (vx < -MAX_SPEED):
+			vx = -MAX_SPEED
+			
+		jump_period -= delta;
+		if (jump_period < 0):
 			jump_period = 0
+			
+		handle_movement()
 		
-	var prex = position.x
-	var prey = position.y
-	motion = move_and_slide(motion, UP)
-	if position.x < 0:
-		position.x = 0
-		
-	if fall_timer >= 4 or health <= 0:
-		get_tree().reload_current_scene()
+		if is_on_floor():
+			jump_period = 0.2
+			if fall_timer > 0.5:
+				# $"/root/FallSound".play()
+				fall_timer = 0
+		else:
+			fall_timer += delta
+		if jump_period > 0 or post_climb_timer > 0:
+			if Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("ui_up"):
+				motion.y = JUMP
+				$"/root/JumpSound".play()
+				jump_period = 0
+				if is_on_floor():
+					var e = EXPLOSION.instance()
+					e.position.x = position.x
+					e.position.y = position.y
+					get_parent().add_child(e)
+			
+		var prex = position.x
+		var prey = position.y
+		motion = move_and_slide(motion, UP)
+		if position.x < 0:
+			position.x = 0
+			
+		if fall_timer >= 4 or health <= 0:
+			get_tree().reload_current_scene()
+	else:
+		$AnimatedSprite.visible = false
 		
 func hit(damage):
 	if invincible_timer <= 0:
