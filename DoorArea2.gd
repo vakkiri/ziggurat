@@ -12,4 +12,4 @@ func _ready():
 
 
 func use():
-	get_tree().change_scene("res://Area3.tscn")
+	get_tree().change_scene("res://Area4.tscn")

@@ -2,6 +2,8 @@ extends StaticBody2D
 
 const PROJECTILE = preload("res://Shard.tscn")
 const EXPLOSION = preload("res://IceCloud.tscn")
+const SHOOTSOUND = preload("res://SpitterShoot.tscn")
+const CHARGESOUND = preload("res://SpitterOpen.tscn")
 
 const COOLDOWN = 2
 const ATTACK_DURATION = 2
@@ -48,26 +50,35 @@ func _process(delta):
 						e.position.x = position.x + rand_range(-2, 2)
 						e.position.y = position.y + rand_range(-2, 2) - 4
 						get_parent().add_child(e)
+					var sound = SHOOTSOUND.instance()
+					sound.position.x = position.x
+					sound.position.y = position.y
+					get_parent().add_child(sound)
+					sound.play()
 				shot_timer += SHOT_CD
 	elif state != "ATTACK":
 		$AnimatedSprite.frame = 0
 
 				
 
-
+func _attack():
+	state = "ATTACK"
+	attack_timer = ATTACK_DURATION
+	$AnimatedSprite.frame = 0
+	$AnimatedSprite.playing = true
+	pre_timer = PRE_DELAY
+	var sound = CHARGESOUND.instance()
+	sound.position.x = position.x
+	sound.position.y = position.y
+	get_parent().add_child(sound)
+	sound.play()
+	
 func _on_Area2D_body_entered(body):
 	if body.name == "Player" and state == "IDLE" and cooldown_timer <= 0:
-		state = "ATTACK"
-		attack_timer = ATTACK_DURATION
-		$AnimatedSprite.frame = 0
-		$AnimatedSprite.playing = true
-		pre_timer = PRE_DELAY
-
+		_attack()
+		
 
 func _on_Area2D_body_exited(body):
 	if body.name == "Player" and state == "IDLE" and cooldown_timer <= 0:
-		state = "ATTACK"
-		attack_timer = ATTACK_DURATION
-		$AnimatedSprite.frame = 0
-		$AnimatedSprite.playing = true
-		pre_timer = PRE_DELAY
+		_attack()
+		

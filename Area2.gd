@@ -8,11 +8,13 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if $"/root/IntroMusic".playing:
+		$"/root/IntroMusic".stop()
 	if not $"/root/Song1".playing:
 		$"/root/Song1".play()
 	$Player.get_node("Camera2D").limit_bottom = 144
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		$Controls.get_node("Controls").visible = !$Controls.get_node("Controls").visible

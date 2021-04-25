@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/DOORBUZZ.wav-30f4acf66f7274d5c1ca3e3440696871.sample"
+
+[deps]
+
+source_file="res://assets/sfx/DOORBUZZ.wav"
+dest_files=[ "res://.import/DOORBUZZ.wav-30f4acf66f7274d5c1ca3e3440696871.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/sfx/SPITTERSHOOT.wav" type="AudioStream" id=1]
+[ext_resource path="res://Sfx.gd" type="Script" id=2]
+
+[node name="SpitterShoot" type="AudioStreamPlayer2D"]
+stream = ExtResource( 1 )
+max_distance = 128.0
+attenuation = 1.68179
+script = ExtResource( 2 )

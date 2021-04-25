@@ -11,6 +11,6 @@ func _ready():
 	$Player.get_node("Camera2D").limit_bottom = 344
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		$Controls.get_node("Controls").visible = !$Controls.get_node("Controls").visible

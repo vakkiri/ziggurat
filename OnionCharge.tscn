@@ -6,6 +6,6 @@
 [node name="OnionCharge" type="AudioStreamPlayer2D"]
 stream = ExtResource( 1 )
 volume_db = -3.817
-max_distance = 150.0
-attenuation = 1.18921
+max_distance = 256.0
+attenuation = 1.41422
 script = ExtResource( 2 )

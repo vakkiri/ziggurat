@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ScrollingLayer.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/foreground_clouds.png" type="Texture" id=2]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+layer = 0
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2( 128, 0 )
+script = ExtResource( 1 )
+speed = 75
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer"]
+margin_top = 103.0
+margin_right = 128.0
+margin_bottom = 143.0
+grow_vertical = 0
+texture = ExtResource( 2 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

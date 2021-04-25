@@ -1,7 +1,7 @@
 extends AnimatedSprite
 
 const EXPLOSION = preload("res://IceCloud.tscn")
-
+const SOUND = preload("res://ShardImpact.tscn")
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -22,7 +22,11 @@ func _die():
 		e.position.x = position.x + rand_range(-4, 4)
 		e.position.y = position.y + rand_range(-2, 2)
 		get_parent().add_child(e)
-		
+	var sound = SOUND.instance()
+	sound.position.x = position.x
+	sound.position.y = position.y
+	get_parent().add_child(sound)
+	sound.play()
 	queue_free()
 	
 func _on_Shard_area_entered(area):

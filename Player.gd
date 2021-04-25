@@ -148,6 +148,8 @@ func _physics_process(delta):
 		for area in $Collider.get_overlapping_areas():
 			if area.name == "DoorArea" and has_key or diamonds == 5:
 				area.use()
+			elif area.name == "DoorArea":
+				$"/root/DoorBuzz".play()
 		
 	handle_gravity(delta)
 	

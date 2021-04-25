@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/SPITTERSHOOT.wav-976c6e793d559b88b2be9c390623d444.sample"
+
+[deps]
+
+source_file="res://assets/sfx/SPITTERSHOOT.wav"
+dest_files=[ "res://.import/SPITTERSHOOT.wav-976c6e793d559b88b2be9c390623d444.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
