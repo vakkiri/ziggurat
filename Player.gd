@@ -120,7 +120,7 @@ func _physics_process(delta):
 		left_pressed_last = true
 	if Input.is_action_just_pressed("ui_down"):
 		for area in $Collider.get_overlapping_areas():
-			if area.name == "DoorArea" and has_key:
+			if area.name == "DoorArea" and has_key or diamonds == 5:
 				area.use()
 		
 	handle_gravity(delta)
