@@ -20,9 +20,6 @@ func _ready():
 	$AnimatedSprite4.frame = int(time_str[3])
 	$AnimatedSprite5.frame = int(time_str[5])
 	$AnimatedSprite6.frame = int(time_str[6])
-	
-	print(time)
-	print(time_str)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

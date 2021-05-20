@@ -50,7 +50,7 @@ func _process_idle(delta):
 				dir = "RIGHT"
 				speed = -0.05
 				
-	position.x += speed
+	position.x += speed * delta * 60
 	flip_h = dir == "RIGHT"
 				
 		
